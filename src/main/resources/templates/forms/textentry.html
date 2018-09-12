@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:insert="fragments/general.html :: headerfiles">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <form>
+                <div class="form-group">
+                    <input class="form-control" id="title" type="text" placeholder="title here..">
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" id="content" rows="10" placeholder="text here...">
+                    </textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div th:insert="fragments/general.html :: footer"></div>
+</body>
+</html>
