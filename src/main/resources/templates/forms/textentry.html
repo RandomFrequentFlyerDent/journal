@@ -6,7 +6,7 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
-            <form>
+            <form th:object="${textEntry}" method="post">
                 <div class="form-group">
                     <input class="form-control" id="title" type="text" placeholder="title here..">
                 </div>
