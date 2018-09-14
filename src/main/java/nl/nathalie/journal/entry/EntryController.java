@@ -1,12 +1,14 @@
 package nl.nathalie.journal.entry;
 
-import nl.nathalie.journal.entry.event.Event;
 import nl.nathalie.journal.entry.event.EventRepository;
-import nl.nathalie.journal.entry.textentry.TextEntry;
+import nl.nathalie.journal.entry.task.TaskRepository;
 import nl.nathalie.journal.entry.textentry.TextEntryRepository;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,12 +19,16 @@ public class EntryController {
 
     private EventRepository eventRepository;
 
+    private TaskRepository taskRepository;
+
     @Value("${spring.application.name}")
     String appName;
 
-    public EntryController(TextEntryRepository textEntryRepository, EventRepository eventRepository) {
+    public EntryController(TextEntryRepository textEntryRepository, EventRepository eventRepository,
+                           TaskRepository taskRepository) {
         this.textEntryRepository = textEntryRepository;
         this.eventRepository = eventRepository;
+        this.taskRepository = taskRepository;
     }
 
     @GetMapping("/entries")
@@ -30,28 +36,23 @@ public class EntryController {
         List<Entry> entries = new ArrayList<>();
         entries.addAll(textEntryRepository.findAll());
         entries.addAll(eventRepository.findAll());
+        entries.addAll(taskRepository.findAll());
 
         return entries;
     }
 
-    @PostMapping("/entries")
-    Entry newEntry(@RequestBody Entry entry) {
-        if (entry instanceof TextEntry) {
-            TextEntry textEntry = (TextEntry) entry;
-            return textEntryRepository.save(textEntry);
+    @GetMapping("/entry/{type}/{id}")
+    Entry one(@PathVariable Entry.EntryType type, @PathVariable Long id) throws Exception {
+        if (type == Entry.EntryType.EVENT) {
+            return eventRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
         }
-        if (entry instanceof Event) {
-            Event event = (Event) entry;
-            return eventRepository.save(event);
+        if (type == Entry.EntryType.TASK) {
+            return taskRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
+        }
+        if (type == Entry.EntryType.TEXT_ENTRY) {
+            return textEntryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
         }
 
-        return null;
+        throw new EntityNotFoundException();
     }
-
-//    @GetMapping("/entry/{id}")
-//    Entry one(@PathVariable Long id) {
-//
-//        return repository.findById(id)
-//                .orElseThrow(() -> new EmployeeNotFoundException(id));
-//    }
 }
