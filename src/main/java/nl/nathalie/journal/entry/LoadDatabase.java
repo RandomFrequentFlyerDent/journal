@@ -26,7 +26,9 @@ public class LoadDatabase {
                                    EventRepository eventRepository) {
         return args -> {
             logger.info("Preloading " + repository.save(new TextEntry("Bilbo Baggins", "burglar")));
-            logger.info("Preloading " + repository.save(new TextEntry("Frodo Baggins", "thief")));
+            logger.info("Preloading " + repository.save(new TextEntry("Frodo Baggins", "thief, make this a different size please, just keep typing")));
+            logger.info("Preloading " + repository.save(new TextEntry("Extra cards", "I really need more than two crads otherwise I can't tell if it's working")));
+            logger.info("Preloading " + repository.save(new TextEntry("Another one", "With yet again different size text")));
             logger.info("Preloading " + taskRepository.save(
                     new Task("Go to Mordor",
                             "we need to do something with a ring",
@@ -37,6 +39,10 @@ public class LoadDatabase {
                             LocalDateTime.of(2018, 11, 15, 13, 45, 00),
                             LocalDateTime.of(2018, 11, 15, 15, 00,00),
                             "The Shire")));
+            logger.info("Preloading " + taskRepository.save(
+                    new Task("Make coffee for Pookie",
+                            "Otherwise he be sleepy",
+                            LocalDateTime.of(2018, 9, 15, 10, 30, 00))));
         };
     }
 }

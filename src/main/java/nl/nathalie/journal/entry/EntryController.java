@@ -1,18 +1,20 @@
 package nl.nathalie.journal.entry;
 
+import nl.nathalie.journal.entry.event.Event;
 import nl.nathalie.journal.entry.event.EventRepository;
+import nl.nathalie.journal.entry.task.Task;
 import nl.nathalie.journal.entry.task.TaskRepository;
+import nl.nathalie.journal.entry.textentry.TextEntry;
 import nl.nathalie.journal.entry.textentry.TextEntryRepository;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
 
-@RestController
+@Controller
 public class EntryController {
 
     private TextEntryRepository textEntryRepository;
@@ -32,13 +34,15 @@ public class EntryController {
     }
 
     @GetMapping("/entries")
-    public List<Entry> all() {
-        List<Entry> entries = new ArrayList<>();
-        entries.addAll(textEntryRepository.findAll());
-        entries.addAll(eventRepository.findAll());
-        entries.addAll(taskRepository.findAll());
+    public String all(Model model) {
+        Iterable<TextEntry> entries = textEntryRepository.findAll();
+        Iterable<Event> events = eventRepository.findAll();
+        Iterable<Task> tasks = taskRepository.findAll();
+        model.addAttribute("entries", entries);
+        model.addAttribute("events", events);
+        model.addAttribute("tasks", tasks);
 
-        return entries;
+        return "entries";
     }
 
     @GetMapping("/entry/{type}/{id}")
