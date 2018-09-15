@@ -41,6 +41,8 @@ public class EntryController {
         model.addAttribute("entries", entries);
         model.addAttribute("events", events);
         model.addAttribute("tasks", tasks);
+        model.addAttribute("appName", appName);
+        model.addAttribute("pageTitle", appName);
 
         return "entries";
     }
