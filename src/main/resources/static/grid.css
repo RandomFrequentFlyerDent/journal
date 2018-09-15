@@ -24,3 +24,24 @@
     display: grid;
     grid-template-columns: repeat(1, 1fr);
 }
+
+.card-color-entry {
+    border-left: 2px solid dodgerblue;
+}
+
+.card-color-event {
+    border-left: 2px solid forestgreen;
+}
+
+.card-color-task {
+    border-left: 2px solid goldenrod;
+}
+
+.updated {
+    font-size: 10px;
+    font-style: italic;
+}
+
+body {
+    font-size: 14px;
+}

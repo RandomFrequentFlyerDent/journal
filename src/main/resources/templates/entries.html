@@ -2,53 +2,41 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:insert="fragments/general.html :: headerfiles"></head>
 <body>
-<div class="container-fluid">
+<div class="container">
     <div class="wrapper">
         <div class="entry-wrapper">
             <div th:each="entry : ${entries}">
-                <div class="card m-2" style="max-width: 18rem;">
+                <div class="card m-2 card-color-entry" style="max-width: 18rem;">
                     <div class="card-body">
-                        <h6 class="card-subtitle mb-2 text-muted text-right">entry</h6>
                         <h5 class="card-title" th:text="${entry.title}"></h5>
                         <p class="card-text" th:text="${entry.content}"></p>
-                        <p class="card-text text-right">
-                            <small class="text-muted"
-                                   th:text="${'last updated ' + #temporals.format(entry.dateUpdated, 'yyyy-MM-dd')}"></small>
-                        </p>
+                        <p class="card-text text-right updated" th:text="${#temporals.format(entry.dateUpdated, 'dd-MM-yy')}"></p>
                     </div>
                 </div>
             </div>
         </div>
         <div class="event-wrapper">
             <div th:each="entry : ${events}">
-                <div class="card m-2" style="max-width: 18rem;">
+                <div class="card m-2 card-color-event" style="max-width: 18rem;">
                     <div class="card-body">
-                        <h6 class="card-subtitle mb-2 text-muted text-right">event</h6>
                         <h5 class="card-title" th:text="${entry.title}"></h5>
                         <p class="card-text" th:text="${entry.description}"></p>
                         <p class="card-text" th:text="${#temporals.format(entry.startTime, 'hh:mm, dd-MM-yyyy')}"></p>
                         <p class="card-text" th:text="${#temporals.format(entry.endTime, 'hh:mm, dd-MM-yyyy')}"></p>
                         <p class="card-text" th:text="${entry.location}"></p>
-                        <p class="card-text text-right">
-                            <small class="text-muted"
-                                   th:text="${'last updated ' + #temporals.format(entry.dateUpdated, 'yyyy-MM-dd')}"></small>
-                        </p>
+                        <p class="card-text text-right updated" th:text="${#temporals.format(entry.dateUpdated, 'dd-MM-yy')}"></p>
                     </div>
                 </div>
             </div>
         </div>
         <div class="task-wrapper">
             <div th:each="entry : ${tasks}">
-                <div class="card m-2" style="max-width: 18rem;">
+                <div class="card m-2 card-color-task" style="max-width: 18rem;">
                     <div class="card-body">
-                        <h6 class="card-subtitle mb-2 text-muted text-right">task</h6>
                         <h5 class="card-title" th:text="${entry.title}"></h5>
                         <p class="card-text" th:text="${entry.description}"></p>
                         <p class="card-text" th:text="${#temporals.format(entry.dueDate, 'dd-MM-yyyy hh:mm')}"></p>
-                        <p class="card-text text-right">
-                            <small class="text-muted"
-                                   th:text="${'last updated ' + #temporals.format(entry.dateUpdated, 'yyyy-MM-dd')}"></small>
-                        </p>
+                        <p class="card-text text-right updated" th:text="${#temporals.format(entry.dateUpdated, 'dd-MM-yy')}"></p>
                     </div>
                 </div>
             </div>
