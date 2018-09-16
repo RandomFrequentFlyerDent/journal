@@ -11,12 +11,11 @@ import java.time.LocalDateTime;
 @Data
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Entry {
-    enum EntryType{TEXT_ENTRY, TASK, EVENT}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "systemid", updatable = false)
-    private Integer id;
+    private Long id;
 
     @Column
     @CreationTimestamp

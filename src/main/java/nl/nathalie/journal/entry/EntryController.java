@@ -38,6 +38,7 @@ public class EntryController {
         Iterable<TextEntry> entries = textEntryRepository.findAll();
         Iterable<Event> events = eventRepository.findAll();
         Iterable<Task> tasks = taskRepository.findAll();
+
         model.addAttribute("entries", entries);
         model.addAttribute("events", events);
         model.addAttribute("tasks", tasks);
@@ -47,18 +48,36 @@ public class EntryController {
         return "entries";
     }
 
-    @GetMapping("/entry/{type}/{id}")
-    Entry one(@PathVariable Entry.EntryType type, @PathVariable Long id) throws Exception {
-        if (type == Entry.EntryType.EVENT) {
-            return eventRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
-        }
-        if (type == Entry.EntryType.TASK) {
-            return taskRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
-        }
-        if (type == Entry.EntryType.TEXT_ENTRY) {
-            return textEntryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
-        }
+    @GetMapping("/entry/text/{id}")
+    public String getTextEntryById(@PathVariable Long id, Model model) {
+        TextEntry entry = textEntryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
 
-        throw new EntityNotFoundException();
+        model.addAttribute("entry", entry);
+        model.addAttribute("appName", appName);
+        model.addAttribute("pageTitle", entry.getTitle());
+
+        return "forms/textentry";
+    }
+
+    @GetMapping("/entry/task/{id}")
+    public String getTaskById(@PathVariable Long id, Model model) {
+        Task task = taskRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
+
+        model.addAttribute("task", task);
+        model.addAttribute("appName", appName);
+        model.addAttribute("pageTitle", task.getTitle());
+
+        return "forms/task";
+    }
+
+    @GetMapping("/entry/event/{id}")
+    public String getEventById(@PathVariable Long id, Model model) {
+        Event event = eventRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
+
+        model.addAttribute("event", event);
+        model.addAttribute("appName", appName);
+        model.addAttribute("pageTitle", event.getTitle());
+
+        return "forms/event";
     }
 }
