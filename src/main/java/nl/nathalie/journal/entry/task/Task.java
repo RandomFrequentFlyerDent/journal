@@ -21,4 +21,8 @@ public class Task extends Entry {
         this.description = description;
         this.dueDate = dueDate;
     }
+
+    public Task() {
+        super();
+    }
 }

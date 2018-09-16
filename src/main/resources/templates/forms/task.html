@@ -4,7 +4,8 @@
 <body>
 <div class="container">
     <div th:insert="fragments/general.html :: menubar"></div>
-    <p class="text-right updated" th:text="'last updated '+ ${#temporals.format(task.dateUpdated, 'dd-MM-yy')}"/>
+    <p th:if="!${task.isNew()}" class="text-right updated"
+       th:text="'last updated '+ ${#temporals.format(task.dateUpdated, 'dd-MM-yy')}"/>
     <form th:object="${task}">
         <div class="form-group">
             <input type="number" class="form-control" th:field="*{id}" hidden="true">
@@ -24,7 +25,7 @@
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-outline-secondary mb-2">Update</button>
+        <button type="submit" class="btn btn-outline-secondary mb-2" th:text="${task.isNew()}? 'Save' : 'Update'"></button>
     </form>
     <div th:insert="fragments/general.html :: footer"/>
 </div>

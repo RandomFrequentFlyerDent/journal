@@ -10,9 +10,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-
-import javax.persistence.EntityNotFoundException;
 
 @Controller
 public class EntryController {
@@ -46,38 +43,5 @@ public class EntryController {
         model.addAttribute("pageTitle", appName);
 
         return "entries";
-    }
-
-    @GetMapping("/entry/text/{id}")
-    public String getTextEntryById(@PathVariable Long id, Model model) {
-        TextEntry entry = textEntryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
-
-        model.addAttribute("entry", entry);
-        model.addAttribute("appName", appName);
-        model.addAttribute("pageTitle", entry.getTitle());
-
-        return "forms/textentry";
-    }
-
-    @GetMapping("/entry/task/{id}")
-    public String getTaskById(@PathVariable Long id, Model model) {
-        Task task = taskRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
-
-        model.addAttribute("task", task);
-        model.addAttribute("appName", appName);
-        model.addAttribute("pageTitle", task.getTitle());
-
-        return "forms/task";
-    }
-
-    @GetMapping("/entry/event/{id}")
-    public String getEventById(@PathVariable Long id, Model model) {
-        Event event = eventRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
-
-        model.addAttribute("event", event);
-        model.addAttribute("appName", appName);
-        model.addAttribute("pageTitle", event.getTitle());
-
-        return "forms/event";
     }
 }

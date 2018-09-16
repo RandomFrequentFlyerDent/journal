@@ -17,4 +17,8 @@ public class TextEntry extends Entry {
         super(title);
         this.content = content;
     }
+
+    public TextEntry() {
+        super();
+    }
 }

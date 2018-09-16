@@ -4,9 +4,9 @@
 <body>
 <div class="container">
     <div th:insert="fragments/general.html :: menubar"></div>
-    <p class="text-right updated"
-       th:text="'last updated '+ ${#temporals.format(entry.dateUpdated, 'dd-MM-yy')}"></p>
-    <form th:object="${entry}">
+    <p th:if="!${entry.isNew()}" class="text-right updated"
+       th:text="'last updated ' + ${#temporals.format(entry.dateUpdated, 'dd-MM-yy')}"></p>
+    <form th:object="${entry}" method="post" th:action="@{/entry/text/new}" action="#">
         <div class="form-group">
             <input type="number" class="form-control" th:field="*{id}" hidden="true">
         </div>
@@ -14,9 +14,13 @@
             <input type="text" class="form-control" th:field="*{title}">
         </div>
         <div class="form-group">
-            <textarea class="form-control" th:field="*{content}" rows="5" />
+            <textarea class="form-control" th:field="*{content}" rows="5"/>
         </div>
-        <button type="submit" class="btn btn-outline-secondary mb-2">Update</button>
+        <button type="submit" class="btn btn-outline-secondary mb-2"
+                th:text="${entry.isNew()}? 'Save' : 'Update'"></button>
+        <a th:if="!${entry.isNew()}" th:href="@{/delete/text/{id}(id = ${entry.id})}">
+            <button type="button" class="btn btn-outline-secondary mb-2">Delete</button>
+        </a>
     </form>
     <div th:insert="fragments/general.html :: footer">
     </div>

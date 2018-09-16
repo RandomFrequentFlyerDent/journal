@@ -34,4 +34,8 @@ public abstract class Entry {
 
     public Entry() {
     }
+
+    public boolean isNew() {
+        return this.getId() == null;
+    }
 }

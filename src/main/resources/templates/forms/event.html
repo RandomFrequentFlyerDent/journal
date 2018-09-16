@@ -5,7 +5,7 @@
 <body>
 <div class="container">
     <div th:insert="fragments/general.html :: menubar"></div>
-    <p class="text-right updated" th:text="'last updated '+ ${#temporals.format(event.dateUpdated, 'dd-MM-yy')}"/>
+    <p th:if="!${event.isNew()}" class="text-right updated" th:text="'last updated '+ ${#temporals.format(event.dateUpdated, 'dd-MM-yy')}"/>
     <form th:object="${event}">
         <div class="form-group">
             <input type="number" class="form-control" th:field="*{id}" hidden="true">
@@ -39,7 +39,7 @@
         <div class="form-group">
             <input type="text" class="form-control" th:field="*{location}">
         </div>
-        <button type="submit" class="btn btn-outline-secondary mb-2">Update</button>
+        <button type="submit" class="btn btn-outline-secondary mb-2" th:text="${event.isNew()}? 'Save' : 'Update'"></button>
     </form>
 </div>
 <div th:insert="fragments/general.html :: footer">

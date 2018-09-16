@@ -34,4 +34,8 @@ public class Event extends Entry {
     public Event(String title) {
         super(title);
     }
+
+    public Event() {
+        super();
+    }
 }
