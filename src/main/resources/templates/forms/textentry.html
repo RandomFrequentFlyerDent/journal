@@ -16,10 +16,11 @@
         <div class="form-group">
             <textarea class="form-control" th:field="*{content}" rows="5"/>
         </div>
-        <button type="submit" class="btn btn-outline-secondary mb-2"
-                th:text="${entry.isNew()}? 'Save' : 'Update'"></button>
+        <button type="submit" class="btn btn-outline-secondary mb-2">
+            <i th:class="${entry.isNew()}? 'fa fa-check' : 'fa fa-pencil'"></i>
+        </button>
         <a th:if="!${entry.isNew()}" th:href="@{/delete/text/{id}(id = ${entry.id})}">
-            <button type="button" class="btn btn-outline-secondary mb-2">Delete</button>
+            <button type="button" class="btn btn-outline-secondary mb-2"><i class="fa fa-trash-o"></i></button>
         </a>
     </form>
     <div th:insert="fragments/general.html :: footer">
